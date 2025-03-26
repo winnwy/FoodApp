@@ -18,6 +18,7 @@ const ForgotPassword = () => {
         <div className="relative w-full">
           <input
             type="text"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
             className="pl-10"

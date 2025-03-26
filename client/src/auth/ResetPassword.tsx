@@ -1,30 +1,30 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader2, Mail } from "lucide-react";
+import { Loader2, LockKeyholeIcon } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
+const ResetPassword = () => {
+  const [newPassword, setNewPassword] = useState("");
   const loading: boolean = false;
   return (
     <div className="flex items-center justify-center min-h-screen w-full">
       <form className="flex flex-col gap-5 md:p-8 w-full max-w-md rounded-lg mx-4">
         <div className="text-center">
-          <h1 className="font-extrabold text-2xl mb-2">Forgot Password</h1>
+          <h1 className="font-extrabold text-2xl mb-2">Reset Password</h1>
           <p className="text-sm text-gray-600">
-            Enter your email address to reset your password
+            Enter your new password to reset your account
           </p>
         </div>
         <div className="relative w-full">
           <Input
             type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            placeholder="Enter your new password"
             className="pl-10 focus-visible:ring-1 border-gray-200"
           />
-          <Mail className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
+          <LockKeyholeIcon className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
         </div>
         {loading ? (
           <Button disabled className="bg-orange-300 hover:bg-orange-400 w-full">
@@ -33,7 +33,7 @@ const ForgotPassword = () => {
           </Button>
         ) : (
           <Button className="bg-orange-300 hover:bg-orange-400 w-full">
-            Send reset link
+            Reset
           </Button>
         )}
         <span className="text-center">
@@ -47,4 +47,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;

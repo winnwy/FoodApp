@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Loader2, Mail } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -16,14 +17,14 @@ const ForgotPassword = () => {
           </p>
         </div>
         <div className="relative w-full">
-          <input
+          <Input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
-            className="pl-10"
+            className="pl-10 focus-visible:ring-1 border-gray-200"
           />
-          <Mail className="absolute inset-y-2 left-2 text-gray-600 pointer-events-none" />
+          <Mail className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
         </div>
         {loading ? (
           <Button disabled className="bg-orange-300 hover:bg-orange-400 w-full">
@@ -36,8 +37,10 @@ const ForgotPassword = () => {
           </Button>
         )}
         <span>
-            Back to {" "}
-            <Link to="/login" className="text-blue-500">Login</Link>
+          Back to{"  "}
+          <Link to="/login" className="text-blue-500">
+            Login
+          </Link>
         </span>
       </form>
     </div>

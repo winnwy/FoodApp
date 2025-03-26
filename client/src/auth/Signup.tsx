@@ -1,24 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import {
-  Contact,
-  Loader2,
-  LockKeyhole,
-  Mail,
-  Phone,
-  PhoneOutgoing,
-  User,
-} from "lucide-react";
+import { SignupInputState, userSignupSchema } from "@/schema/userSchema";
+import { Loader2, LockKeyhole, Mail, Phone, User } from "lucide-react";
 import { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
-
-type SignupInputState = {
-  fullname: string;
-  email: string;
-  password: string;
-  contact: string;
-};
 
 const Signup = () => {
   const [input, setInput] = useState<SignupInputState>({
@@ -27,6 +13,7 @@ const Signup = () => {
     password: "",
     contact: "",
   });
+  const [errors, setErrors] = useState<Partial<SignupInputState>>({});
 
   const changeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -34,10 +21,23 @@ const Signup = () => {
       ...prev,
       [name]: value,
     }));
+    setErrors((prev) => ({
+      ...prev,
+      [name]: undefined,
+    }));
   };
 
-  const LoginSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const SignupSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // form validation
+    const result = userSignupSchema.safeParse(input);
+    if (!result.success) {
+      const fieldErrors = result.error.formErrors.fieldErrors;
+      setErrors(fieldErrors as Partial<SignupInputState>);
+      return;
+    }
+    setErrors({});
+    //TODO: login api call
     console.log(input);
   };
 
@@ -46,7 +46,7 @@ const Signup = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <form
-        onSubmit={LoginSubmitHandler}
+        onSubmit={SignupSubmitHandler}
         className="md:p-8 w-full max-w-md rounded-lg md:border border-gray-200 mx-4"
       >
         <div>
@@ -64,6 +64,9 @@ const Signup = () => {
               className="pl-10 focus-visible:ring-1 border-gray-200"
             />
             <User className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
+            {errors.fullname && (
+              <span className="text-xs text-red-500">{errors.fullname}</span>
+            )}
           </div>
         </div>
 
@@ -78,6 +81,9 @@ const Signup = () => {
               className="pl-10 focus-visible:ring-1 border-gray-200"
             />
             <Mail className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
+            {errors.email && (
+              <span className="text-xs text-red-500">{errors.email}</span>
+            )}
           </div>
         </div>
 
@@ -92,6 +98,9 @@ const Signup = () => {
               className="pl-10 focus-visible:ring-1 border-gray-200"
             />
             <LockKeyhole className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
+            {errors.password && (
+              <span className="text-xs text-red-500">{errors.password}</span>
+            )}
           </div>
         </div>
 
@@ -106,6 +115,9 @@ const Signup = () => {
               className="pl-10 focus-visible:ring-1 border-gray-200"
             />
             <Phone className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
+            {errors.contact && (
+              <span className="text-xs text-red-500">{errors.contact}</span>
+            )}
           </div>
         </div>
 

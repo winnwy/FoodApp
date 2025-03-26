@@ -1,20 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { LoginInputState, userLoginSchema } from "@/schema/userSchema";
 import { Loader2, LockKeyhole, Mail } from "lucide-react";
 import { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
-
-type LoginInputState = {
-  email: string;
-  password: string;
-};
 
 const Login = () => {
   const [input, setInput] = useState<LoginInputState>({
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState<Partial<LoginInputState>>({});
 
   const changeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,10 +19,22 @@ const Login = () => {
       ...prev,
       [name]: value,
     }));
+    setErrors((prev) => ({
+      ...prev,
+      [name]: undefined,
+    }));
   };
 
   const LoginSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // form validation
+    const result = userLoginSchema.safeParse(input);
+    if (!result.success) {
+      const fieldErrors = result.error.formErrors.fieldErrors;
+      setErrors(fieldErrors as Partial<LoginInputState>);
+      return;
+    }
+    setErrors({});
     console.log(input);
   };
 
@@ -33,7 +42,10 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <form onSubmit={LoginSubmitHandler} className="md:p-8 w-full max-w-md rounded-lg md:border border-gray-200 mx-4">
+      <form
+        onSubmit={LoginSubmitHandler}
+        className="md:p-8 w-full max-w-md rounded-lg md:border border-gray-200 mx-4"
+      >
         <div>
           <h1 className="font-bold text-2xl">PatelEats</h1>
         </div>
@@ -48,6 +60,9 @@ const Login = () => {
               className="pl-10 focus-visible:ring-1 border-gray-200"
             />
             <Mail className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
+            {errors.email && (
+              <span className="text-xs text-red-500">{errors.email}</span>
+            )}
           </div>
         </div>
 
@@ -62,17 +77,26 @@ const Login = () => {
               className="pl-10 focus-visible:ring-1 border-gray-200"
             />
             <LockKeyhole className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
+            {errors.password && (
+              <span className="text-xs text-red-500">{errors.password}</span>
+            )}
           </div>
         </div>
 
         <div className="mb-10">
           {loading ? (
-            <Button disabled className="bg-orange-300 hover:bg-orange-400 w-full">
+            <Button
+              disabled
+              className="bg-orange-300 hover:bg-orange-400 w-full"
+            >
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Please Wait
             </Button>
           ) : (
-            <Button type="submit" className="bg-orange-300 hover:bg-orange-400 w-full">
+            <Button
+              type="submit"
+              className="bg-orange-300 hover:bg-orange-400 w-full"
+            >
               Login
             </Button>
           )}

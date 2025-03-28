@@ -87,7 +87,7 @@ const Login = () => {
           {loading ? (
             <Button
               disabled
-              className="w-full" variant={"orange"}
+              className="w-full" variant={"main"}
             >
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Please Wait
@@ -95,7 +95,7 @@ const Login = () => {
           ) : (
             <Button
               type="submit"
-              className="w-full" variant={"orange"}
+              className="w-full" variant={"main"}
             >
               Login
             </Button>

@@ -27,12 +27,12 @@ const ResetPassword = () => {
           <LockKeyholeIcon className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
         </div>
         {loading ? (
-          <Button disabled className="w-full" variant={"orange"}>
+          <Button disabled className="w-full" variant={"main"}>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Please Wait
           </Button>
         ) : (
-          <Button className=" w-full" variant={"orange"}>
+          <Button className=" w-full" variant={"main"}>
             Reset
           </Button>
         )}

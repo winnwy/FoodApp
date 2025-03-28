@@ -57,7 +57,7 @@ const VerifyEmail = () => {
             {loading ? (
               <Button
                 disabled
-                className="w-full" variant={"orange"}
+                className="w-full" variant={"main"}
               >
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Please Wait
@@ -65,7 +65,7 @@ const VerifyEmail = () => {
             ) : (
               <Button
                 type="submit"
-                className=" w-full" variant={"orange"}
+                className=" w-full" variant={"main"}
               >
                 Verify
               </Button>

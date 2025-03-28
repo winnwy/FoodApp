@@ -27,12 +27,12 @@ const ForgotPassword = () => {
           <Mail className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
         </div>
         {loading ? (
-          <Button disabled className="bg-orange-300 hover:bg-orange-400 w-full">
+          <Button disabled className="w-full" variant={"orange"}>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Please Wait
           </Button>
         ) : (
-          <Button className="bg-orange-300 hover:bg-orange-400 w-full">
+          <Button className=" w-full" variant={"orange"}>
             Send reset link
           </Button>
         )}

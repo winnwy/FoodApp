@@ -57,7 +57,7 @@ const VerifyEmail = () => {
             {loading ? (
               <Button
                 disabled
-                className="bg-orange-300 hover:bg-orange-400 w-full"
+                className="w-full" variant={"orange"}
               >
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Please Wait
@@ -65,7 +65,7 @@ const VerifyEmail = () => {
             ) : (
               <Button
                 type="submit"
-                className="bg-orange-300 hover:bg-orange-400 w-full"
+                className=" w-full" variant={"orange"}
               >
                 Verify
               </Button>
